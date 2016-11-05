@@ -1,0 +1,88 @@
+<% include ../layout/top.html %>
+<link rel="stylesheet" href="/css/settlement.css"/>
+<div class="hd not_print btns_wrp">
+    <a class="btn btn-primary" href="/spending/edit?date=<%= date %>">编辑</a>
+    <a class="btn btn-danger" href="javascript:del()">删除</a>
+    <a class="btn btn-success" href="javascript:window.narrow_print()">打印</a>
+</div>
+<div class="print_hd">
+    <h4>佛山市南海区大鸿汽车服务部财务支出单</h4>
+    <p>
+        <span>地址：佛山市南海区小塘工业大道</span>
+        <span>电话：0757-86638550</span>
+    </p>
+</div>
+<div class="bd">
+    <legend><%= date %></legend>
+    <h4>进货支出</h4>
+    <%if(partListData.length > 0){%>
+    <table class="table table-bordered narrow">
+        <thead>
+        <tr>
+            <th class="ws">序号</th>
+            <th>配件名称</th>
+            <th class="wm">数量</th>
+            <th class="wm">总额</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%for(var i = 0; i < partListData.length; ++i){%>
+        <tr>
+            <td><%= i+1 %></td>
+            <td><%= partListData[i].name %></td>
+            <td><%= partListData[i].count %></td>
+            <td><%= partListData[i].cost %></td>
+        </tr>
+        <%}%>
+        </tbody>
+    </table>
+    <%}else{%>
+    <div class="empty">暂无数据</div>
+    <%}%>
+
+    <h4>其他支出</h4>
+    <%if(itemListData.length > 0){%>
+    <table class="table table-bordered narrow">
+        <thead>
+        <tr>
+            <th class="ws">序号</th>
+            <th>名称</th>
+            <th class="wm">数量</th>
+            <th class="wm">总额</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%for(var i = 0; i < itemListData.length; ++i){%>
+        <tr>
+            <td><%= i+1 %></td>
+            <td><%= itemListData[i].name %></td>
+            <td><%= itemListData[i].count %></td>
+            <td><%= itemListData[i].cost %></td>
+        </tr>
+        <%}%>
+        </tbody>
+    </table>
+    <%}else{%>
+    <div class="empty">暂无数据</div>
+    <%}%>
+</div>
+<div class="ft">
+    <%if(note){%><p class="note">备注：<%= note %></p><%}%>
+    <table class="table">
+        <tbody>
+        <tr>
+            <td>应该支出：￥<%= allMayCost %></td>
+            <td>实际支出：￥<%= allRealCost %></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    setTagActive("spending_query");
+    del = function(){
+        if(confirm("确定删除？")){
+            location.href = "/spending/del/<%= date %>";
+        }
+    };
+</script>
+<% include ../layout/bottom.html %>

@@ -1,0 +1,25 @@
+<% include ../layout/top.html %>
+<form class="form-horizontal" action="/statistics/get">
+    <fieldset>
+        <legend>请填写日期进行查询</legend>
+        <div class="form-group rows">
+            <label class="col-sm-1 control-label">起始日期</label>
+            <div class="col-sm-3">
+                <input class="form-control" type="date" name="startDate" value="<%= get('today') %>" maxlength="30" />
+            </div>
+
+            <label class="col-sm-1 control-label">结束日期</label>
+            <div class="col-sm-3">
+                <input class="form-control" type="date" name="endDate" value="" maxlength="30" />
+            </div>
+        </div>
+        <div class="form-actions rows">
+            <label class="col-sm-1 control-label"></label>
+            <input class="btn btn-primary" type="submit" value="确认"/>
+        </div>
+    </fieldset>
+</form>
+<script type="text/javascript">
+    setTagActive("statistics");
+</script>
+<% include ../layout/bottom.html %>

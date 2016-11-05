@@ -1,0 +1,237 @@
+<% include ../layout/top.html %>
+<style type="text/css">
+    select.form-control{padding-left:0;padding-right:0}
+</style>
+<form class="form-horizontal" action="/record/post/" method="post">
+    <input type="hidden" name="recordId" value="<%= get('id') %>"/>
+    <fieldset>
+        <legend>客户信息</legend>
+        <div class="form-group rows">
+            <label class="col-sm-1 control-label">客户名称</label>
+            <div class="col-sm-5">
+                <input class="form-control" type="text" name="ownerName" value="<%= get('ownerName') %>" maxlength="30" />
+            </div>
+
+            <label class="col-sm-1 control-label">客户电话</label>
+            <div class="col-sm-5">
+                <input class="form-control" type="text" name="ownerTel" value="<%= get('ownerTel') %>" maxlength="30" />
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>汽车信息</legend>
+        <div class="form-group rows">
+            <label class="col-sm-1 control-label">车牌号码</label>
+            <div class="col-sm-5">
+                <input class="form-control" type="text" name="carNum" id="carNum" value="<%= get('num', '粤') %>" maxlength="10" />
+            </div>
+
+            <label class="col-sm-1 control-label">车辆型号</label>
+            <div class="col-sm-5">
+                <input class="form-control" type="text" name="carType" value="<%= get('type') %>" maxlength="30" />
+            </div>
+        </div>
+        <div class="form-group rows">
+            <label class="col-sm-1 control-label">进厂时间</label>
+            <div class="col-sm-5">
+                <input class="form-control" type="date" name="carInDate" value="<%= get('carInDate', get('today')) %>" />
+            </div>
+
+            <label class="col-sm-1 control-label">出厂时间</label>
+            <div class="col-sm-5">
+                <input class="form-control" type="date" name="carOutDate" value="<%= get('carOutDate', get('today')) %>" />
+            </div>
+        </div>
+        <div class="rows js_inputOper">
+            <%if(get("projectListData") && get("projectListData").length){%>
+                <%for (var projectIndex = 0; projectIndex < projectListData.length; ++projectIndex){%>
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">维修/美容</label>
+                    <div class="col-sm-6">
+                        <input class="form-control" type="text" name="projectName" value="<%= projectListData[projectIndex].name %>" placeholder="项目名称" maxlength="200" />
+                    </div>
+                    <div class="col-sm-1">
+                        <select class="form-control" name="projectMan">
+                            <option value="">负责人</option>
+                            <%for(var i = 0; i < employees.length; ++i){%>
+                            <option value="<%= employees[i] %>" <%if(employees[i] == projectListData[projectIndex].man){%>selected<%}%>><%= employees[i] %></option>
+                            <%}%>
+                        </select>
+                    </div>
+                    <div class="col-sm-1">
+                        <input class="form-control" type="text" name="projectTime" value="<%= projectListData[projectIndex].time || ''%>" placeholder="工时" maxlength="10" />
+                    </div>
+                    <div class="col-sm-1">
+                        <input class="form-control" type="text" name="projectCost" value="<%= projectListData[projectIndex].cost || ''%>" placeholder="金额" maxlength="10" />
+                    </div>
+                    <div class="col-sm-2">
+                        <a class="btn btn-primary addBtn" href="javascript:">+项目</a>
+                        <a class="btn btn-danger delBtn" href="javascript:">删除</a>
+                    </div>
+                </div>
+                <%}%>
+            <%}else{%>
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">维修/美容</label>
+                    <div class="col-sm-6">
+                        <input class="form-control" type="text" name="projectName" value="" placeholder="项目名称" maxlength="200" />
+                    </div>
+                    <div class="col-sm-1">
+                        <select class="form-control" name="projectMan">
+                            <option value="">负责人</option>
+                            <%for(var i = 0; i < employees.length; ++i){%>
+                            <option value="<%= employees[i] %>"><%= employees[i] %></option>
+                            <%}%>
+                        </select>
+                    </div>
+                    <div class="col-sm-1">
+                        <input class="form-control" type="text" name="projectTime" value="" placeholder="工时" maxlength="10" />
+                    </div>
+                    <div class="col-sm-1">
+                        <input class="form-control" type="text" name="projectCost" value="" placeholder="金额" maxlength="10" />
+                    </div>
+                    <div class="col-sm-2">
+                        <a class="btn btn-primary addBtn" href="javascript:">+项目</a>
+                        <a class="btn btn-danger delBtn" href="javascript:">删除</a>
+                    </div>
+                </div>
+            <%}%>
+        </div>
+        <div class="rows js_inputOper">
+            <%if(get("partListData") && get("partListData").length){%>
+                <%for (var partIndex = 0; partIndex < partListData.length; ++partIndex){%>
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">所需配件</label>
+                    <div class="col-sm-7">
+                        <input class="form-control" type="text" name="partName" value="<%= partListData[partIndex].name %>" placeholder="配件名称" maxlength="200" />
+                    </div>
+                    <div class="col-sm-1">
+                        <input class="form-control" type="text" name="partCount" value="<%= partListData[partIndex].count %>" placeholder="数量" maxlength="3" />
+                    </div>
+                    <div class="col-sm-1">
+                        <input class="form-control" type="text" name="partCost" value="<%= partListData[partIndex].cost %>" placeholder="总额" maxlength="10" />
+                    </div>
+                    <div class="col-sm-2">
+                        <a class="btn btn-primary addBtn" href="javascript:">+配件</a>
+                        <a class="btn btn-danger delBtn" href="javascript:">删除</a>
+                    </div>
+                </div>
+                <%}%>
+            <%}else{%>
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">所需配件</label>
+                    <div class="col-sm-7">
+                        <input class="form-control" type="text" name="partName" value="" placeholder="配件名称" maxlength="200" />
+                    </div>
+                    <div class="col-sm-1">
+                        <input class="form-control" type="text" name="partCount" value="" placeholder="数量" maxlength="3" />
+                    </div>
+                    <div class="col-sm-1">
+                        <input class="form-control" type="text" name="partCost" value="" placeholder="总额" maxlength="10" />
+                    </div>
+                    <div class="col-sm-2">
+                        <a class="btn btn-primary addBtn" href="javascript:">+配件</a>
+                        <a class="btn btn-danger delBtn" href="javascript:">删除</a>
+                    </div>
+                </div>
+            <%}%>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>总计</legend>
+        <div class="rows">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">配件应收(元)</label>
+                <div class="col-sm-2">
+                    <input class="form-control" type="text" name="partMayCost" id="partMayCost" value="<%= get('partMayCost', '0') %>" readonly />
+                </div>
+
+                <label class="col-sm-2 control-label">配件实收(元)</label>
+                <div class="col-sm-2">
+                    <input class="form-control" type="text" name="partRealCost" id="partRealCost" value="<%= get('partRealCost', '0') %>" maxlength="10" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">合计应收(元)</label>
+                <div class="col-sm-2">
+                    <input class="form-control" type="text" name="allMayCost" id="allMayCost" value="<%= get('allMayCost', '0') %>" readonly />
+                </div>
+
+                <label class="col-sm-2 control-label">合计实收(元)</label>
+                <div class="col-sm-2">
+                    <input class="form-control" type="text" name="allRealCost" id="allRealCost" value="<%= get('allRealCost', '0') %>" maxlength="10" />
+                </div>
+
+                <label class="col-sm-2 control-label">收银员</label>
+                <div class="col-sm-2">
+                    <select class="form-control" name="cashier" id="">
+                        <%for(var i = 0; i < employees.length; ++i){%>
+                        <option value="<%= employees[i] %>" <%if(get("cashier") && employees[i] == cashier){%>selected<%}%>><%= employees[i] %></option>
+                        <%}%>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>备注</legend>
+        <div>
+            <textarea class="form-control" type="text" name="note" placeholder="请输入200字以内的备注信息，如：给客人的折扣等。" maxlength="200"><%= get('note') %></textarea>
+        </div>
+    </fieldset>
+    <div class="form-actions">
+        <a class="btn btn-primary btn-block" href="javascript:" id="submitBtn">确认</a>
+    </div>
+</form>
+<script type="text/javascript" src="/js/jquery.autocomplete.min.js"></script>
+<script type="text/javascript">
+(function(){
+    setTagActive("record_input");
+
+    var allMayCost = 0, projectCost = 0, partMayCost = 0;
+    function calculate(){
+        projectCost = 0; partMayCost = 0;
+        $.each($("input[name='projectCost']:visible"), function(i, n){
+            projectCost += parseInt(n.value) || 0;
+        });
+        $.each($("input[name='partCost']:visible"), function(i, n){
+            partMayCost += parseInt(n.value) || 0;
+        });
+        allMayCost = projectCost + partMayCost;
+
+        $("#partMayCost").val(partMayCost);
+        $("#partRealCost").val(partMayCost);
+        $("#allMayCost").val(allMayCost);
+        $("#allRealCost").val(allMayCost);
+    }
+
+    $("body")
+            .delegate("input[name='projectCost']", "input",calculate)
+            .delegate("input[name='partCost']", "input", calculate)
+            .delegate(".delBtn", "click", calculate);
+
+    $("#submitBtn").on("click", function(){
+        var val = $("#carNum").val();
+        if(val == "粤" || val == ""){
+            alert("请输入车牌号码");
+            $("body").scrollTop(0);
+            $("#carNum").focus().val("粤");
+            return false;
+        }else if($("[name='projectName']").val() == "" && $("[name='partName']").val() == ""){
+            $("body").scrollTop(0);
+            $("[name='projectName']").focus();
+            alert("请输入维修/配件名称");
+            return false;
+        }else{
+            document.forms[0].submit();
+        }
+    });
+
+    $.get("/storage/getAllName", function(data){
+        $("input[name='partName']").autocomplete({
+            lookup: data
+        });
+    });
+})();
+</script>
+<% include ../layout/bottom.html %>

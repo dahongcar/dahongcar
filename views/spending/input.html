@@ -1,0 +1,149 @@
+<% include ../layout/top.html %>
+<form class="form-horizontal" action="/spending/post/" method="post">
+    <input type="hidden" name="lastdate" value="<%= get('date') %>"/>
+    <fieldset>
+        <div class="form-group rows">
+            <label class="col-sm-1 control-label">日期</label>
+            <div class="col-sm-3">
+                <input class="form-control" type="date" name="date" value="<%= get('date', get('today')) %>" />
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>进货支出</legend>
+        <div class="rows js_inputOper">
+            <%if(get("partListData") && get("partListData").length){%>
+            <%for (var partIndex = 0; partIndex < partListData.length; ++partIndex){%>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">条目</label>
+                <div class="col-sm-7">
+                    <input class="form-control" type="text" name="partName" value="<%= partListData[partIndex].name %>" placeholder="配件名称" maxlength="200" />
+                </div>
+                <div class="col-sm-1">
+                    <input class="form-control" type="text" name="partCount" value="<%= partListData[partIndex].count %>" placeholder="数量" maxlength="3" />
+                </div>
+                <div class="col-sm-1">
+                    <input class="form-control" type="text" name="partCost" cal="cal" value="<%= partListData[partIndex].cost %>" placeholder="总额" maxlength="10" />
+                </div>
+                <div class="col-sm-2">
+                    <a class="btn btn-primary addBtn" href="javascript:">+条目</a>
+                    <a class="btn btn-danger delBtn" href="javascript:">删除</a>
+                </div>
+            </div>
+            <%}%>
+            <%}else{%>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">条目</label>
+                <div class="col-sm-7">
+                    <input class="form-control" type="text" name="partName" value="" placeholder="配件名称" maxlength="200" />
+                </div>
+                <div class="col-sm-1">
+                    <input class="form-control" type="text" name="partCount" value="" placeholder="数量" maxlength="3" />
+                </div>
+                <div class="col-sm-1">
+                    <input class="form-control" type="text" name="partCost" cal="cal" value="" placeholder="总额" maxlength="10" />
+                </div>
+                <div class="col-sm-2">
+                    <a class="btn btn-primary addBtn" href="javascript:">+条目</a>
+                    <a class="btn btn-danger delBtn" href="javascript:">删除</a>
+                </div>
+            </div>
+            <%}%>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>其他支出</legend>
+        <div class="rows js_inputOper">
+            <%if(get("itemListData") && get("itemListData").length){%>
+            <%for (var itemIndex = 0; itemIndex < itemListData.length; ++itemIndex){%>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">条目</label>
+                <div class="col-sm-7">
+                    <input class="form-control" type="text" name="itemName" value="<%= itemListData[itemIndex].name %>" placeholder="名称" maxlength="200" />
+                </div>
+                <div class="col-sm-1">
+                    <input class="form-control" type="text" name="itemCount" value="<%= itemListData[itemIndex].count %>" placeholder="数量" maxlength="3" />
+                </div>
+                <div class="col-sm-1">
+                    <input class="form-control" type="text" name="itemCost" cal="cal" value="<%= itemListData[itemIndex].cost %>" placeholder="总额" maxlength="10" />
+                </div>
+                <div class="col-sm-2">
+                    <a class="btn btn-primary addBtn" href="javascript:">+条目</a>
+                    <a class="btn btn-danger delBtn" href="javascript:">删除</a>
+                </div>
+            </div>
+            <%}%>
+            <%}else{%>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">条目</label>
+                <div class="col-sm-7">
+                    <input class="form-control" type="text" name="itemName" value="" placeholder="名称" maxlength="200" />
+                </div>
+                <div class="col-sm-1">
+                    <input class="form-control" type="text" name="itemCount" value="" placeholder="数量" maxlength="3" />
+                </div>
+                <div class="col-sm-1">
+                    <input class="form-control" type="text" name="itemCost" cal="cal" value="" placeholder="总额" maxlength="10" />
+                </div>
+                <div class="col-sm-2">
+                    <a class="btn btn-primary addBtn" href="javascript:">+条目</a>
+                    <a class="btn btn-danger delBtn" href="javascript:">删除</a>
+                </div>
+            </div>
+            <%}%>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>总计</legend>
+        <div class="rows">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">应该支出(元)</label>
+                <div class="col-sm-2">
+                    <input class="form-control" type="text" name="allMayCost" id="allMayCost" value="<%= get('allMayCost', '0') %>" readonly />
+                </div>
+
+                <label class="col-sm-2 control-label">实际支出(元)</label>
+                <div class="col-sm-2">
+                    <input class="form-control" type="text" name="allRealCost" id="allRealCost" value="<%= get('allRealCost', '0') %>" maxlength="10" />
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>备注</legend>
+        <div>
+            <textarea class="form-control" type="text" name="note" placeholder="请输入200字以内的备注信息" maxlength="200"><%= get('note') %></textarea>
+        </div>
+    </fieldset>
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary btn-block">确认</button>
+    </div>
+</form>
+<script type="text/javascript" src="/js/jquery.autocomplete.min.js"></script>
+<script type="text/javascript">
+    (function(){
+        setTagActive("spending_input");
+
+        var cost = 0;
+        function calculate(){
+            cost = 0;
+            $.each($("input[cal]:visible"), function(i, n){
+                cost += parseInt(n.value) || 0;
+            });
+
+            $("#allMayCost").val(cost);
+            $("#allRealCost").val(cost);
+        }
+
+        $("body")
+                .delegate("input[cal]", "input",calculate)
+                .delegate(".delBtn", "click", calculate);
+
+        $.get("/storage/getAllName", function(data){
+            $("input[name='partName']").autocomplete({
+                lookup: data
+            });
+        });
+    })();
+</script>
+<% include ../layout/bottom.html %>

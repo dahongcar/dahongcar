@@ -1,0 +1,31 @@
+<% include ../layout/top.html %>
+<form class="form-horizontal">
+    <fieldset>
+        <legend>查询结果</legend>
+        <table class="table table-striped table-hover clickable">
+            <thead><tr>
+                <% for(var i = 0; i < thead.length; i++) { %>
+                <th><%= thead[i] %></th>
+                <% } %>
+            </tr></thead>
+            <tbody class="">
+                <% for(var i = 0; i < tbody.length; i++) { %>
+                <tr <%if(tbody[i].clickto){%>clickto = "<%= tbody[i].clickto %>"<%}%>>
+                    <% for(var j = 0; j < tbody[i].length; j++) { %>
+                        <td><%= tbody[i][j] %></td>
+                    <% } %>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </fieldset>
+    <div class="form-actions rows">
+        <label class="col-sm-1 control-label"></label>
+        <a class="btn btn-default" href="javascript:history.back()">返回</a>
+        <a class="btn btn-default" href="/tmpl/recordQuery">返回资料查询</a>
+    </div>
+</form>
+<script type="text/javascript">
+    setTagActive("record_query");
+</script>
+<% include ../layout/bottom.html %>

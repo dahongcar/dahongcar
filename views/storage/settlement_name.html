@@ -1,0 +1,77 @@
+<% include ../layout/top.html %>
+<link rel="stylesheet" href="/css/settlement.css"/>
+<div class="hd not_print btns_wrp">
+    <a class="btn btn-default" href="javascript:history.back()">返回</a>
+    <a class="btn btn-success" href="javascript:window.narrow_print()">打印</a>
+    <a class="btn btn-primary" href="/tmpl?t=spending/input">进货录入</a>
+</div>
+<div class="print_hd">
+    <h3>佛山市南海区大鸿汽车服务部仓库单</h3>
+    <p>
+        <span>地址：佛山市南海区小塘工业大道</span>
+        <span>电话：0757-86638550</span>
+    </p>
+</div>
+<div class="bd">
+    <legend>进仓记录</legend>
+    <%if(storageData.length > 0){%>
+    <table class="table table-bordered clickable">
+        <thead>
+        <tr>
+            <th class="ws">序号</th>
+            <th>名称</th>
+            <th style="width:100px">时间</th>
+            <th class="wm">数量</th>
+            <th class="wm">总额</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%for(var i = 0; i < storageData.length; ++i){%>
+        <tr clickto="/spending/get?date=<%= storageData[i].date %>">
+            <td><%= i+1 %></td>
+            <td><%= name %></td>
+            <td><%= storageData[i].date %></td>
+            <td><%= storageData[i].count %></td>
+            <td><%= storageData[i].cost %></td>
+        </tr>
+        <%}%>
+        </tbody>
+    </table>
+    <%}else{%>
+    <div class="empty">暂无数据</div>
+    <%}%>
+
+    <legend>出仓记录</legend>
+    <%if(recordData.length > 0){%>
+    <table class="table table-bordered clickable">
+        <thead>
+        <tr>
+            <th class="ws">序号</th>
+            <th>名称</th>
+            <th style="width:100px">车牌号码</th>
+            <th style="width:100px">时间</th>
+            <th class="wm">数量</th>
+            <th class="wm">总额</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%for(var i = 0; i < recordData.length; ++i){%>
+        <tr clickto="/record/get/<%= recordData[i].carNum %>/<%= recordData[i].id %>">
+            <td><%= i+1 %></td>
+            <td><%= name %></td>
+            <td><%= recordData[i].carNum %></td>
+            <td><%= recordData[i].carOutDate %></td>
+            <td><%= recordData[i].count %></td>
+            <td><%= recordData[i].cost %></td>
+        </tr>
+        <%}%>
+        </tbody>
+    </table>
+    <%}else{%>
+    <div class="empty">暂无数据</div>
+    <%}%>
+</div>
+<script type="text/javascript">
+    setTagActive("storage_query");
+</script>
+<% include ../layout/bottom.html %>

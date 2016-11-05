@@ -1,0 +1,14 @@
+<% include layout/top.html %>
+
+<h1><%= title %></h1>
+<p>Welcome to <%= title %></p>
+<div class="form-actions extra">
+    <a class="btn btn-primary" href="/tmpl?t=record/input">资料录入</a>
+    <a class="btn btn-success" href="/tmpl?t=record/query">资料查询</a>
+</div>
+<script type="text/javascript">
+    (function(){
+        setTagActive("home");
+    })();
+</script>
+<% include layout/bottom.html %>

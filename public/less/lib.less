@@ -1,0 +1,42 @@
+@import "fn";
+// =========================================================
+
+// 基础类库
+// 注意！！！！ 
+// 务必保证此文件可单独使用，可供其它LESS文件或者HTML文件调用
+
+// ========================================================
+
+.dn{display:none;}.di{display:inline;}.dib{display:inline-block;}.b_dib{display:inline-block;*display:inline;*zoom:1;}.db{display:block;}.cell{display:table-cell;}
+.vh{visibility:hidden;}.vv{visibility:visible;}
+.static{position:static;}.rel{position:relative;}.abs{position:absolute;}
+.oh{overflow:hidden;}.z{*zoom:1;}
+.l{float:left;}.r{float:right;}.fn{float:none;}.cl{clear:both;}
+
+.tc{text-align:center;}.tr{text-align:right;}.tl{text-align:left;}
+.tj{text-align:justify;text-justify:distribute-all-lines;text-align-last:justify;.f(0);}
+.tj:after{content:".";display:inline-block;width:100%;height:0;font-size:0;overflow:hidden;}
+
+.vt{vertical-align:top;}.vm{vertical-align:middle;}.vb{vertical-align:bottom;}
+.f0{font-size:0;}
+.fa{font-family:Arial;}.fs{font-family:SimSun;}.fyh{font-family:"Microsoft YaHei";}
+.indent{text-indent:2em;}
+.n{font-weight:400;font-style:normal;}.b{font-weight:700;}.i{font-style:italic;}
+.tdn{text-decoration:none;}.tdn:hover{text-decoration: none;}
+.poi{cursor:pointer;}
+
+.group{.z;}.group:after{content:"\200B";.db;.h(0);.cl;}
+.clearfix{*zoom:1;}
+.clearfix:before,.clearfix:after{display:table;content:'';}
+.clearfix:after{clear:both;}
+
+
+// 下面两个是为了兼容以前的用法
+.text_hide{.lh(999em);.oh;}// 同时在使用.text_hide的该元素上定义height
+.text_overflow{.oh;text-overflow:ellipsis;white-space:nowrap;}
+.drop_hl_extra{padding-left:999em;margin-left:-999em;}
+.drop_vb_extra{padding-bottom:999em;margin-bottom:-999em;}
+
+
+
+

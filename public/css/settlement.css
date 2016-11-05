@@ -1,0 +1,120 @@
+.ws {
+  width: 48px;
+}
+.wm {
+  width: 73px;
+}
+.wl {
+  width: 10%;
+}
+h4 {
+  margin: 10px 0 5px;
+  font-size: 16px;
+}
+table.narrow th,
+table.narrow td {
+  padding: 4px 8px !important;
+}
+table.no_border th,
+table.no_border td {
+  border: 0 !important;
+}
+td {
+  min-width: 45px;
+  vertical-align: middle !important;
+}
+legend.no_extra {
+  margin-bottom: 0;
+}
+.print {
+  display: none;
+}
+.print_hd {
+  display: none;
+  text-align: center;
+}
+.print_hd p {
+  margin: 10px 0;
+}
+.print_hd p span {
+  margin: 0 20px;
+}
+.hd {
+  margin-bottom: 20px;
+}
+.bd table:last-child {
+  margin-bottom: 0;
+}
+.ft td {
+  border-top: 0 !important;
+}
+.ft + legend {
+  margin-top: 20px;
+}
+.ft .btns_wrp {
+  margin-top: 20px;
+}
+.clickable [clickto] {
+  cursor: pointer;
+}
+.clickable [clickto]:hover {
+  background-color: #f5f5f5;
+}
+.note {
+  padding-top: 8px;
+  padding-left: 8px;
+  font-size: 12px;
+}
+.sign {
+  display: none;
+  width: 50%;
+}
+.empty {
+  line-height: 100px;
+  background-color: #fafafa;
+  text-align: center;
+  color: #cccccc;
+  font-size: 18px;
+}
+.empty + legend {
+  margin-top: 20px;
+}
+@media print {
+  body {
+    font-family: "宋体";
+  }
+  body.narrow legend {
+    margin-bottom: 0;
+    border-bottom: 0;
+    font-size: 18px;
+  }
+  body.narrow table {
+    margin-bottom: 0 !important;
+  }
+  body.narrow th,
+  body.narrow td {
+    padding: 0 8px !important;
+  }
+  body.narrow tr.print {
+    display: table-row;
+  }
+  body.narrow .print_hd p {
+    margin: 3px 0;
+  }
+  .not_print {
+    display: none;
+  }
+  .print_hd {
+    display: block;
+  }
+  .sign {
+    display: table-cell;
+  }
+  .footer {
+    display: none;
+  }
+  .table-bordered th,
+  .table-bordered td {
+    border: 1px solid #000 !important;
+  }
+}

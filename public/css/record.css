@@ -1,0 +1,71 @@
+.ws {
+  width: 48px;
+}
+.wm {
+  width: 73px;
+}
+.wl {
+  width: 10%;
+}
+td {
+  min-width: 45px;
+  vertical-align: middle !important;
+}
+.print_hd {
+  display: none;
+  text-align: center;
+}
+.print_hd p {
+  margin: 10px 0;
+}
+.print_hd p span {
+  margin: 0 20px;
+}
+.hd {
+  margin-bottom: 20px;
+}
+.bd table:last-child {
+  margin-bottom: 0;
+}
+.ft td {
+  border-top: 0 !important;
+}
+.note {
+  padding-top: 8px;
+  padding-left: 8px;
+  font-size: 12px;
+}
+.sign {
+  display: none;
+}
+@media print {
+  body {
+    font-family: "宋体";
+  }
+  body.narrow table {
+    margin-bottom: 0 !important;
+  }
+  body.narrow th,
+  body.narrow td {
+    padding: 0 8px !important;
+  }
+  body.narrow .print_hd p {
+    margin: 3px 0;
+  }
+  .not_print {
+    display: none;
+  }
+  .print_hd {
+    display: block;
+  }
+  .sign {
+    display: table-cell;
+  }
+  .footer {
+    display: none;
+  }
+  .table-bordered th,
+  .table-bordered td {
+    border: 1px solid #000 !important;
+  }
+}

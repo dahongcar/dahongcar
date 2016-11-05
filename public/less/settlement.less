@@ -1,0 +1,57 @@
+@import "fn";
+
+.ws{.w(48px);}
+.wm{.w(73px);}
+.wl{.w(10%);}
+
+h4{.m(10px 0 5px);.f(16px);}
+table{
+    &.narrow{
+        th, td{padding: 4px 8px !important;}
+    }
+    &.no_border{
+        th, td{border:0 !important;}
+    }
+}
+td{min-width: 45px; vertical-align: middle !important;}
+legend.no_extra{.mb(0);}
+.print{.dn;}
+.print_hd{.dn;.tc;
+    p{.m(10px 0);
+        span{.m(0 20px);}
+    }
+}
+.hd{.mb(20px);}
+.bd table:last-child{.mb(0);}
+.ft{
+    td{border-top:0 !important;}
+    +legend{.mt(20px);}
+    .btns_wrp{.mt(20px);}
+}
+
+.clickable [clickto]{.poi;
+    &:hover{.bc(#f5f5f5);}
+}
+.note{.pt(8px);.pl(8px);.f(12px);}
+.sign{.dn;.w(50%);}
+.empty{.lh(100px);.bc(#FAFAFA);.tc;.c(#CCC);.f(18px);
+    +legend{.mt(20px);}
+}
+
+@media print {
+    body{font-family:"宋体";
+        &.narrow{
+            legend{.mb(0);border-bottom:0;.f(18px);}
+            table{margin-bottom: 0 !important;}
+            th,td{padding: 0 8px !important;}
+            tr.print{display: table-row;}
+            .print_hd p{margin: 3px 0;}
+        }
+    }
+    .not_print{.dn;}
+
+    .print_hd{.db;}
+    .sign{display: table-cell;}
+    .footer{.dn;}
+    .table-bordered th, .table-bordered td{border:1px solid #000 !important;}
+}

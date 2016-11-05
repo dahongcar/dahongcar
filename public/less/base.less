@@ -1,0 +1,34 @@
+@import "fn";
+@import "reset";
+
+body{font-family: "Microsoft Yahei";}
+.footer{
+  .mt(30px);.p(15px 0);
+  border-top: 1px solid #ccc;
+  .c(#777);.f(12px);
+}
+
+//table
+.table-hover tr[clickto]{.poi;}
+
+//nav
+.navbar{.br(0)}
+.navbar-brand{.h(auto)}
+
+//form
+fieldset{.mb(30px);}
+.form-actions{.pt(18px);.pb(18px);.mt(18px);.mb(18px);.bc(#eee);border-top: 1px solid #ddd;*zoom: 1;
+  &.extra{.p(18px);}
+  &:before, &:after{display: table;content:"";}
+  &:after{.cl;}
+}
+
+//js
+.js_inputOper .form-group:first-child .delBtn{.dn;}
+.js_inputOper .form-group .control-label{.vh;}
+.js_inputOper .form-group:first-child .control-label{.vv;}
+
+.autocomplete-suggestions { border: 1px solid #999; background: #fff; cursor: default; overflow: auto; }
+.autocomplete-suggestion { padding: 0 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-selected { background: #f0f0f0; }
+.autocomplete-suggestions strong { font-weight: normal; color: #3399ff; }

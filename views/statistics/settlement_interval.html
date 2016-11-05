@@ -1,0 +1,71 @@
+<% include ../layout/top.html %>
+<link rel="stylesheet" href="/css/settlement.css"/>
+<div class="hd not_print btns_wrp">
+    <a class="btn btn-default" href="javascript:history.back()">返回</a>
+    <a class="btn btn-success" href="javascript:window.narrow_print()">打印</a>
+</div>
+<div class="print_hd">
+    <h3>佛山市南海区大鸿汽车服务部财务收支单</h3>
+    <p>
+        <span>地址：佛山市南海区小塘工业大道</span>
+        <span>电话：0757-86638550</span>
+    </p>
+</div>
+<div class="bd">
+    <% this.allMayIncome = 0, this.allRealIncome = 0, this.allMayCost = 0, this.allRealCost = 0; %>
+    <legend><%= startDate%>至<%= endDate%> 盈利</legend>
+    <%if(printData.length){%>
+    <table class="table table-bordered narrow clickable">
+        <thead>
+        <tr>
+            <th>日期</th>
+            <th>当日应收总额</th>
+            <th>当日实收总额</th>
+            <th>当日应支总额</th>
+            <th>当日实支总额</th>
+            <th>当日应该盈利</th>
+            <th>当日实际盈利</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%
+            for(var i = 0; i < printData.length; ++i){
+            this.allMayIncome += printData[i].recordAllMayCost;
+            this.allRealIncome += printData[i].recordAllRealCost;
+            this.allMayCost += printData[i].spendingAllMayCost;
+            this.allRealCost += printData[i].spendingAllRealCost;
+        %>
+        <tr clickto="/statistics/get?startDate=<%= printData[i].date %>">
+            <td title="日期"><%= printData[i].date %></td>
+            <td title="<%= printData[i].date %>应收总额"><%= printData[i].recordAllMayCost %></td>
+            <td title="<%= printData[i].date %>实收总额"><%= printData[i].recordAllRealCost %></td>
+            <td title="<%= printData[i].date %>应支总额"><%= printData[i].spendingAllMayCost %></td>
+            <td title="<%= printData[i].date %>实支总额"><%= printData[i].spendingAllRealCost %></td>
+            <td title="<%= printData[i].date %>应该盈利"><%= printData[i].recordAllMayCost - printData[i].spendingAllMayCost %></td>
+            <td title="<%= printData[i].date %>实际盈利"><%= printData[i].recordAllRealCost - printData[i].spendingAllRealCost %></td>
+        </tr>
+        <%}%>
+        </tbody>
+    </table>
+
+    <legend>合计</legend>
+    <table class="table no_border">
+        <tbody>
+        <tr>
+            <td>应该收入：<%= allMayIncome %></td>
+            <td>实际收入：<%= allRealIncome %></td>
+            <td>应该支出：<%= allMayCost %></td>
+            <td>实际支出：<%= allRealCost %></td>
+            <td>应该盈利：<%= allMayIncome - allMayCost %></td>
+            <td>实际盈利：<%= allRealIncome - allRealCost %></td>
+        </tr>
+        </tbody>
+    </table>
+    <%}else{%>
+    <div class="empty">暂无数据</div>
+    <%}%>
+</div>
+<script type="text/javascript">
+    setTagActive("statistics");
+</script>
+<% include ../layout/bottom.html %>

@@ -1,0 +1,58 @@
+<% include ../layout/top.html %>
+<link rel="stylesheet" href="/css/settlement.css"/>
+<div class="hd not_print btns_wrp">
+    <div style="display:inline-block;margin-right: 20px;vertical-align:middle">
+        <label>查找</label>
+        <input id="filter" class="form-control" type="text" style="display:inline-block;width:200px;margin-left:5px" />
+    </div>
+    <a class="btn btn-default" href="javascript:history.back()">返回</a>
+    <a class="btn btn-success" href="javascript:window.narrow_print()">打印</a>
+    <a class="btn btn-primary" href="/tmpl?t=spending/input">进货录入</a>
+</div>
+<div class="print_hd">
+    <h3>佛山市南海区大鸿汽车服务部仓库单</h3>
+    <p>
+        <span>地址：佛山市南海区小塘工业大道</span>
+        <span>电话：0757-86638550</span>
+    </p>
+</div>
+<div class="bd">
+    <%if(storageData.length > 0){%>
+    <table class="table table-bordered clickable">
+        <thead>
+        <tr>
+            <th class="ws">序号</th>
+            <th>名称</th>
+            <th class="wm">数量</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%for(var i = 0; i < storageData.length; ++i){%>
+        <tr clickto="/storage/get?name=<%= storageData[i].name %>">
+            <td><%= i+1 %></td>
+            <td class="js_name"><%= storageData[i].name %></td>
+            <td><%= storageData[i].count %></td>
+        </tr>
+        <%}%>
+        </tbody>
+    </table>
+    <%}else{%>
+    <div class="empty">暂无数据</div>
+    <%}%>
+</div>
+<script type="text/javascript">
+(function () {
+    setTagActive("storage_query");
+
+    var tr = $("tbody").find("tr");
+    $("#filter").on("input", function () {
+        tr.hide();
+
+        var val = this.value;
+        $(".js_name").filter(function () {
+            return $(this).text().indexOf(val) > -1;
+        }).parent("tr").show();
+    });
+})();
+</script>
+<% include ../layout/bottom.html %>

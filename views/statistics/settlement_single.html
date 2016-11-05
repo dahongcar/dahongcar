@@ -1,0 +1,152 @@
+<% include ../layout/top.html %>
+<link rel="stylesheet" href="/css/settlement.css"/>
+<div class="hd not_print btns_wrp">
+    <a class="btn btn-default" href="javascript:history.back()">返回</a>
+    <a class="btn btn-success" href="javascript:window.narrow_print()">打印</a>
+</div>
+<div class="print_hd">
+    <h3>佛山市南海区大鸿汽车服务部财务收支单</h3>
+    <p>
+        <span>地址：佛山市南海区小塘工业大道</span>
+        <span>电话：0757-86638550</span>
+    </p>
+</div>
+<div class="bd">
+    <% this.allMayCost = 0, this.allRealCost = 0; %>
+    <legend><%= date%> 收入</legend>
+    <%if(recordData.length){%>
+    <div class="bd">
+        <table class="table table-bordered narrow clickable">
+            <thead>
+            <tr>
+                <th class="ws">序号</th>
+                <th>车牌</th>
+                <th>应收</th>
+                <th>实收</th>
+                <th>备注</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%
+                for(var i = 0; i < recordData.length; ++i){
+                this.allMayCost += recordData[i].allMayCost;
+                this.allRealCost += recordData[i].allRealCost;
+            %>
+            <tr clickto="/record/get/<%= recordData[i].carNum %>/<%= recordData[i].id %>">
+                <td><%= i+1 %></td>
+                <td><%= recordData[i].carNum %></td>
+                <td><%= recordData[i].allMayCost %></td>
+                <td><%= recordData[i].allRealCost %></td>
+                <td><%= recordData[i].note %></td>
+            </tr>
+            <%}%>
+            </tbody>
+        </table>
+    </div>
+    <div class="ft">
+        <table class="table">
+            <tbody>
+            <tr>
+                <td>应收：￥<%= allMayCost %></td>
+                <td>实收：￥<%= allRealCost %></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <%}else{%>
+    <div class="empty">暂无数据</div>
+    <%}%>
+
+
+    <legend><%= date%> 支出</legend>
+    <%
+        if(spendingData){
+        this.allMayCost -= spendingData.allMayCost;
+        this.allRealCost -= spendingData.allRealCost;
+    %>
+    <div class="bd">
+        <h4>进货支出</h4>
+        <%if(partListData.length > 0){%>
+        <table class="table table-bordered narrow clickable">
+            <thead>
+            <tr>
+                <th class="ws">序号</th>
+                <th>配件名称</th>
+                <th class="wm">数量</th>
+                <th class="wm">总额</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%for(var i = 0; i < partListData.length; ++i){%>
+            <tr clickto="/spending/get?date=<%= date %>">
+                <td><%= i+1 %></td>
+                <td><%= partListData[i].name %></td>
+                <td><%= partListData[i].count %></td>
+                <td><%= partListData[i].cost %></td>
+            </tr>
+            <%}%>
+            </tbody>
+        </table>
+        <%}else{%>
+        <div class="empty">暂无数据</div>
+        <%}%>
+
+        <h4>其他支出</h4>
+        <%if(spendingItemData.length > 0){%>
+        <table class="table table-bordered narrow clickable">
+            <thead>
+            <tr>
+                <th class="ws">序号</th>
+                <th>名称</th>
+                <th>数量</th>
+                <th>总额</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%
+            for(var i = 0; i < spendingItemData.length; ++i){
+            %>
+            <tr clickto="/spending/get?date=<%= date %>">
+                <td><%= i+1 %></td>
+                <td><%= spendingItemData[i].name %></td>
+                <td><%= spendingItemData[i].count %></td>
+                <td><%= spendingItemData[i].cost %></td>
+            </tr>
+            <%}%>
+            </tbody>
+        </table>
+        <%}else{%>
+        <div class="empty">暂无数据</div>
+        <%}%>
+    </div>
+    <div class="ft">
+        <%if(spendingData.note){%><p class="note">备注：<%= spendingData.note %></p><%}%>
+        <table class="table">
+            <tbody>
+            <tr>
+                <td>应支：￥<%= spendingData.allMayCost %></td>
+                <td>实支：￥<%= spendingData.allRealCost %></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <%}else{%>
+    <div class="empty">暂无数据</div>
+    <%}%>
+
+    <legend class="no_extra"><%= date%> 合计</legend>
+    <div class="ft">
+        <table class="table">
+            <tbody>
+            <tr>
+                <td><strong>合计应收：￥<%= allMayCost %></strong></td>
+                <td><strong>合计实收：￥<%= allRealCost %></strong></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script type="text/javascript">
+    setTagActive("statistics");
+</script>
+<% include ../layout/bottom.html %>

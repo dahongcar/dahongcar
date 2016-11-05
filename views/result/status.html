@@ -1,0 +1,11 @@
+<% include ../layout/top.html %>
+
+<h3><%= get("title") %></h3>
+<p><%= get("msg") %></p>
+<div class="form-actions extra">
+    <a class="btn btn-default" href="javascript:history.back()">返回</a>
+    <%if(get("mod")){%>
+    <a class="btn btn-primary" href="<%= mod.url%>"><%= mod.name%></a>
+    <%}%>
+</div>
+<% include ../layout/bottom.html %>

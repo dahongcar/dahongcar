@@ -1,0 +1,15 @@
+{
+    "name": "nodejs",
+    "version": "1.0.0",
+    "author": "bear",
+    "description": "The dahongcar nodejs app!",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "dependencies": {
+        "mysql": "2.0.0-alpha9",
+        "express": "3.4.8",
+        "ejs": "*"
+    }
+}
+

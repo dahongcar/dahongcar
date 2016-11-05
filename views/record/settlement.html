@@ -1,0 +1,129 @@
+<% include ../layout/top.html %>
+<link rel="stylesheet" href="/css/settlement.css"/>
+<div class="hd not_print">
+    <a class="btn btn-default" href="javascript:history.back()">返回</a>
+    <a class="btn btn-default" href="/record/get/<%= num %>">维修记录</a>
+    <a class="btn btn-primary" href="/record/add/<%= num %>">新增</a>
+    <a class="btn btn-primary" href="/record/edit/<%= num %>/<%= id %>">编辑</a>
+    <a class="btn btn-danger" href="javascript:del()">删除</a>
+    <a class="btn btn-success" href="javascript:window.default_print()">打印</a>
+    <a class="btn btn-success" href="javascript:window.narrow_print()">打印窄版</a>
+</div>
+<div class="print_hd">
+    <h3>佛山市南海区大鸿汽车服务部财务结算单</h3>
+    <p>
+        <span>地址：佛山市南海区小塘工业大道</span>
+        <span>电话：0757-86638550</span>
+        <span>№ <%= id %></span>
+    </p>
+</div>
+<div class="bd">
+    <h4 class="not_print">单号：<%= id %></h4>
+    <table class="table table-bordered">
+        <tr>
+            <td class="wm">客户名称</td><td><%= ownerName %></td>
+            <td class="wm">车牌号码</td><td><%= num %></td>
+            <td class="wm">进厂时间</td><td><%= carInDate %></td>
+        </tr>
+        <tr>
+            <td class="wm">客户电话</td><td><%= ownerTel %></td>
+            <td class="wm">车辆型号</td><td><%= type %></td>
+            <td class="wm">出厂时间</td><td><%= carOutDate %></td>
+        </tr>
+    </table>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th class="ws">序号</th>
+            <th>维修/美容项目</th>
+            <th class="wm">负责人</th>
+            <th class="wm">工时</th>
+            <th class="wm">金额</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%for(var i = 0, len = projectListData.length; i < 8; ++i){%>
+        <tr class="<%if(i >= len){%>print<%}%>">
+            <td><%= i+1 %></td>
+            <td><%= projectListData[i] && projectListData[i].name || "" %></td>
+            <td><%= projectListData[i] && projectListData[i].man  || "" %></td>
+            <td><%= projectListData[i] && projectListData[i].time || "" %></td>
+            <td><%= projectListData[i] && projectListData[i].cost || "" %></td>
+        </tr>
+        <%}%>
+        </tbody>
+    </table>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th class="ws">序号</th>
+            <th>配件名称</th>
+            <th class="wm">数量</th>
+            <th class="wm">单价</th>
+            <th class="wm">总额</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%for(var i = 0, len = partListData.length; i < 22; ++i){%>
+        <tr class="<%if(i >= len){%>print<%}%>">
+            <td><%= i+1 %></td>
+            <td><%= partListData[i] && partListData[i].name  || "" %></td>
+            <td><%= partListData[i] && partListData[i].count || "" %></td>
+            <td><%= partListData[i] && partListData[i].cost && partListData[i].count && Math.ceil(parseInt(partListData[i].cost) / parseInt(partListData[i].count)) || "" %></td>
+            <td><%= partListData[i] && partListData[i].cost  || "" %></td>
+        </tr>
+        <%}%>
+        </tbody>
+    </table>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>配件应收</th>
+            <th>配件实收</th>
+            <th>合计应收</th>
+            <th>合计实收</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>￥<%= partMayCost %></td>
+            <td>￥<%= partRealCost %></td>
+            <td>￥<%= allMayCost %></td>
+            <td>￥<%= allRealCost %></td>
+        </tr>
+        <tr>
+            <td colspan="10"><strong>总计：<%= allRealCostDX %>（￥<%= allRealCost %>）</strong></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="ft">
+    <%if(note){%><p class="note">备注：<%= note %></p><%}%>
+    <table class="table">
+        <tr class="note"></tr>
+        <tr>
+            <td>收银员：<%= cashier %></td>
+            <td class="sign">客户签名：</td>
+        </tr>
+    </table>
+    <div class="not_print">
+        <a class="btn btn-default" href="javascript:history.back()">返回</a>
+        <a class="btn btn-default" href="/record/get/<%= num %>">维修记录</a>
+        <a class="btn btn-primary" href="/record/add/<%= num %>">新增</a>
+        <a class="btn btn-primary" href="/record/edit/<%= num %>/<%= id %>">编辑</a>
+        <a class="btn btn-danger" href="javascript:del()">删除</a>
+        <a class="btn btn-success" href="javascript:window.default_print()">打印</a>
+        <a class="btn btn-success" href="javascript:window.narrow_print()">打印窄版</a>
+    </div>
+</div>
+<script type="text/javascript">
+    setTagActive("record_query");
+    del = function(){
+        if(confirm("确定删除？")){
+            location.href = "/record/del/<%= num %>/<%= id %>";
+        }
+    };
+</script>
+<% include ../layout/bottom.html %>
