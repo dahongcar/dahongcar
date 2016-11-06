@@ -47,7 +47,7 @@
                 <%for (var projectIndex = 0; projectIndex < projectListData.length; ++projectIndex){%>
                 <div class="form-group">
                     <label class="col-sm-1 control-label">维修/美容</label>
-                    <div class="col-sm-6">
+                    <div class="col-sm-7">
                         <input class="form-control" type="text" name="projectName" value="<%= projectListData[projectIndex].name %>" placeholder="项目名称" maxlength="200" />
                     </div>
                     <div class="col-sm-1">
@@ -58,11 +58,11 @@
                             <%}%>
                         </select>
                     </div>
-                    <div class="col-sm-1">
+                    <!--<div class="col-sm-1">
                         <input class="form-control" type="text" name="projectTime" value="<%= projectListData[projectIndex].time || ''%>" placeholder="工时" maxlength="10" />
-                    </div>
+                    </div>-->
                     <div class="col-sm-1">
-                        <input class="form-control" type="text" name="projectCost" value="<%= projectListData[projectIndex].cost || ''%>" placeholder="金额" maxlength="10" />
+                        <input class="form-control" type="text" name="projectCost" value="<%= projectListData[projectIndex].cost || ''%>" placeholder="工时为" maxlength="10" />
                     </div>
                     <div class="col-sm-2">
                         <a class="btn btn-primary addBtn" href="javascript:">+项目</a>
@@ -73,7 +73,7 @@
             <%}else{%>
                 <div class="form-group">
                     <label class="col-sm-1 control-label">维修/美容</label>
-                    <div class="col-sm-6">
+                    <div class="col-sm-7">
                         <input class="form-control" type="text" name="projectName" value="" placeholder="项目名称" maxlength="200" />
                     </div>
                     <div class="col-sm-1">
@@ -84,11 +84,11 @@
                             <%}%>
                         </select>
                     </div>
-                    <div class="col-sm-1">
+                    <!--<div class="col-sm-1">
                         <input class="form-control" type="text" name="projectTime" value="" placeholder="工时" maxlength="10" />
-                    </div>
+                    </div>-->
                     <div class="col-sm-1">
-                        <input class="form-control" type="text" name="projectCost" value="" placeholder="金额" maxlength="10" />
+                        <input class="form-control" type="text" name="projectCost" value="" placeholder="工时为" maxlength="10" />
                     </div>
                     <div class="col-sm-2">
                         <a class="btn btn-primary addBtn" href="javascript:">+项目</a>

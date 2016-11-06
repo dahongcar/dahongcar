@@ -37,8 +37,8 @@
             <th class="ws">序号</th>
             <th>维修/美容项目</th>
             <th class="wm">负责人</th>
-            <th class="wm">工时</th>
-            <th class="wm">金额</th>
+            <!--<th class="wm">工时</th>-->
+            <th class="wm">工时为</th>
         </tr>
         </thead>
         <tbody>
@@ -47,7 +47,7 @@
             <td><%= i+1 %></td>
             <td><%= projectListData[i] && projectListData[i].name || "" %></td>
             <td><%= projectListData[i] && projectListData[i].man  || "" %></td>
-            <td><%= projectListData[i] && projectListData[i].time || "" %></td>
+            <!--<td><%= projectListData[i] && projectListData[i].time || "" %></td>-->
             <td><%= projectListData[i] && projectListData[i].cost || "" %></td>
         </tr>
         <%}%>
@@ -60,7 +60,7 @@
             <th class="ws">序号</th>
             <th>配件名称</th>
             <th class="wm">数量</th>
-            <th class="wm">单价</th>
+            <!--<th class="wm">单价</th>-->
             <th class="wm">总额</th>
         </tr>
         </thead>
@@ -70,7 +70,7 @@
             <td><%= i+1 %></td>
             <td><%= partListData[i] && partListData[i].name  || "" %></td>
             <td><%= partListData[i] && partListData[i].count || "" %></td>
-            <td><%= partListData[i] && partListData[i].cost && partListData[i].count && Math.ceil(parseInt(partListData[i].cost) / parseInt(partListData[i].count)) || "" %></td>
+            <!--<td><%= partListData[i] && partListData[i].cost && partListData[i].count && Math.ceil(parseInt(partListData[i].cost) / parseInt(partListData[i].count)) || "" %></td>-->
             <td><%= partListData[i] && partListData[i].cost  || "" %></td>
         </tr>
         <%}%>

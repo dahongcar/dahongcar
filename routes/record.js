@@ -51,7 +51,7 @@ exports.post = function (req, res) {
                     var projectData = {
                         name: body.projectName,
                         man: body.projectMan,
-                        time: body.projectTime || 0,
+                        //time: body.projectTime || 0,
                         cost: body.projectCost || 0,
                         recordId: recordId
                     };
@@ -65,7 +65,7 @@ exports.post = function (req, res) {
                             var projectData = {
                                 name: body.projectName[i],
                                 man: body.projectMan[i],
-                                time: body.projectTime || 0,
+                                //time: body.projectTime || 0,
                                 cost: body.projectCost[i] || 0,
                                 recordId: recordId
                             };
