@@ -2,9 +2,6 @@
 .安装实时监控：npm install -g supervisor
 .安装Chrome的Node调试器：npm install -g node-inspector
 
-.安装目录：express -e dahongcar
-.安装MySQL数据库的支持：npm install mysql
-
 从GET/POST Request取值
 req.params.xxxxx 从path中的变量
 req.query.xxxxx 从get中的?xxxx=中

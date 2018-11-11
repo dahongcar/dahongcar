@@ -113,7 +113,7 @@ exports.post = function (req, res) {
         });
     }
     function insertRecordSucc() {
-        if((!body.projectName || (body.projectName && insertProjSucc)) && (!body.partName || (body.partName && insertPartSucc))) res.redirect("/record/get/" + carNum + "/" + recordId);
+        if((!body.projectName || (body.projectName && insertProjSucc)) && (!body.partName || (body.partName && insertPartSucc))) res.redirect("/record/get/" + encodeURI(carNum) + "/" + recordId);
     }
 
     //检测是否有车辆
