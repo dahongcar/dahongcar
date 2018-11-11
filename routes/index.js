@@ -4,5 +4,5 @@
  */
 
 exports.index = function(req, res){
-  res.render('index', { title: '大鸿汽配' });
+  res.render('index', { title: '大伟鸿汽配' });
 };
