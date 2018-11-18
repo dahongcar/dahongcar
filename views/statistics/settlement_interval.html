@@ -12,7 +12,7 @@
     </p>
 </div>
 <div class="bd">
-    <% this.allMayIncome = 0, this.allRealIncome = 0, this.allMayCost = 0, this.allRealCost = 0; %>
+    <% this.allMayIncome = 0, this.allRealIncome = 0, this.allPartCost = 0, this.allItemCost = 0; %>
     <legend><%= startDate%>至<%= endDate%> 盈利</legend>
     <%if(printData.length){%>
     <table class="table table-bordered narrow clickable">
@@ -40,20 +40,14 @@
             for(var i = 0; i < printData.length; ++i){
             this.allMayIncome += printData[i].recordAllMayCost;
             this.allRealIncome += printData[i].recordAllRealCost;
-            this.allMayCost += printData[i].spendingAllMayCost;
-            this.allRealCost += printData[i].spendingAllRealCost;
+            this.allPartCost += printData[i].spendingAllPartCost;
+            this.allItemCost += printData[i].spendingAllItemCost;
         %>
         <tr clickto="/statistics/get?startDate=<%= printData[i].date %>">
             <td title="日期"><%= printData[i].date %></td>
 
             <td title="<%= printData[i].date %>应收总额"><%= printData[i].recordAllMayCost %></td>
             <td title="<%= printData[i].date %>实收总额"><%= printData[i].recordAllRealCost %></td>
-            <td title="<%= printData[i].date %>应支总额"><%= printData[i].spendingAllMayCost %></td>
-
-            <td title="<%= printData[i].date %>实支总额"><%= printData[i].spendingAllRealCost %></td>
-            <td title="<%= printData[i].date %>应该盈利"><%= printData[i].recordAllMayCost - printData[i].spendingAllMayCost %></td>
-            <td title="<%= printData[i].date %>实际盈利"><%= printData[i].recordAllRealCost - printData[i].spendingAllRealCost %></td>
-
 
         </tr>
         <%}%>
@@ -66,10 +60,10 @@
         <tr>
             <td>应该收入：<%= allMayIncome %></td>
             <td>实际收入：<%= allRealIncome %></td>
-            <td>应该支出：<%= allMayCost %></td>
-            <td>实际支出：<%= allRealCost %></td>
-            <td>应该盈利：<%= allMayIncome - allMayCost %></td>
-            <td>实际盈利：<%= allRealIncome - allRealCost %></td>
+            <td>进货支出：<%= allPartCost %></td>
+            <td>其它支出：<%= allItemCost %></td>
+            <td>应该盈利：<%= allMayIncome - allPartCost - allItemCost%></td>
+            <td>实际盈利：<%= allRealIncome - allPartCost - allItemCost%></td>
         </tr>
         </tbody>
     </table>

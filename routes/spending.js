@@ -9,8 +9,8 @@ exports.post = function (req, res) {
 
     var spendingData = {
             date: date,
-            allMayCost: body.allMayCost,
-            allRealCost: body.allRealCost,
+            allPartCost: body.allPartCost,
+            allItemCost: body.allItemCost,
             note: body.note
         };
 

@@ -90,8 +90,8 @@ function handleWithInterval(req, res, startDate, endDate){
                     // 洗车次数
                     recordAllMayCost: recordIndex < recordLen ? recordData[recordIndex].allMayCost : 0,
                     recordAllRealCost: recordIndex < recordLen ? recordData[recordIndex].allRealCost : 0,
-                    spendingAllMayCost: spendingIndex < spendingLen ? spendingData[spendingIndex].allMayCost : 0,
-                    spendingAllRealCost: spendingIndex < spendingLen ? spendingData[spendingIndex].allRealCost : 0
+                    spendingAllPartCost: spendingIndex < spendingLen ? spendingData[spendingIndex].allPartCost : 0,
+                    spendingAllItemCost: spendingIndex < spendingLen ? spendingData[spendingIndex].allItemCost : 0
                 });
 
 
@@ -111,7 +111,7 @@ function handleWithInterval(req, res, startDate, endDate){
             recordData = results || null;
             show();
         });
-    sqlclient.query("select date,sum(allMayCost) as allMayCost,sum(allRealCost) as allRealCost from spending where date between '" + startDate + "' and '" + endDate + "' group by(date);",
+    sqlclient.query("select date,sum(allPartCost) as allPartCost,sum(allItemCost) as allItemCost from spending where date between '" + startDate + "' and '" + endDate + "' group by(date);",
         function (error, results) {
             spendingData = results || null;
             show();

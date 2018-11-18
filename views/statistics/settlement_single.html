@@ -61,8 +61,8 @@
     <legend><%= date%> 支出</legend>
     <%
         if(spendingData){
-        this.allMayCost -= spendingData.allMayCost;
-        this.allRealCost -= spendingData.allRealCost;
+        this.allMayCost -= spendingData.allPartCost + spendingData.allItemCost;
+        this.allRealCost -= spendingData.allPartCost + spendingData.allItemCost;
     %>
     <div class="bd">
         <h4>进货支出</h4>
@@ -124,8 +124,8 @@
         <table class="table">
             <tbody>
             <tr>
-                <td>应支：￥<%= spendingData.allMayCost %></td>
-                <td>实支：￥<%= spendingData.allRealCost %></td>
+                <td>进货总支出：￥<%= spendingData.allPartCost %></td>
+                <td>其它总支出：￥<%= spendingData.allItemCost %></td>
             </tr>
             </tbody>
         </table>

@@ -9,7 +9,7 @@
             </div>
         </div>
     </fieldset>
-    <fieldset>
+    <fieldset class="partField">
         <legend>进货支出</legend>
         <div class="rows js_inputOper">
             <%if(get("partListData") && get("partListData").length){%>
@@ -51,8 +51,8 @@
             <%}%>
         </div>
     </fieldset>
-    <fieldset>
-        <legend>其他支出</legend>
+    <fieldset class="itemField">
+        <legend>其它支出</legend>
         <div class="rows js_inputOper">
             <%if(get("itemListData") && get("itemListData").length){%>
             <%for (var itemIndex = 0; itemIndex < itemListData.length; ++itemIndex){%>
@@ -97,14 +97,14 @@
         <legend>总计</legend>
         <div class="rows">
             <div class="form-group">
-                <label class="col-sm-2 control-label">应该支出(元)</label>
+                <label class="col-sm-2 control-label">进货支出(元)</label>
                 <div class="col-sm-2">
-                    <input class="form-control" type="text" name="allMayCost" id="allMayCost" value="<%= get('allMayCost', '0') %>" readonly />
+                    <input class="form-control" type="text" name="allPartCost" id="allPartCost" value="<%= get('allPartCost', '0') %>" readonly />
                 </div>
 
-                <label class="col-sm-2 control-label">实际支出(元)</label>
+                <label class="col-sm-2 control-label">其它支出(元)</label>
                 <div class="col-sm-2">
-                    <input class="form-control" type="text" name="allRealCost" id="allRealCost" value="<%= get('allRealCost', '0') %>" maxlength="10" />
+                    <input class="form-control" type="text" name="allItemCost" id="allItemCost" value="<%= get('allItemCost', '0') %>" readonly />
                 </div>
             </div>
         </div>
@@ -124,20 +124,30 @@
     (function(){
         setTagActive("spending_input");
 
-        var cost = 0;
-        function calculate(){
-            cost = 0;
-            $.each($("input[cal]:visible"), function(i, n){
+        function partCalc(){
+            var cost = 0;
+            $.each($(".partField input[cal]:visible"), function(i, n){
                 cost += parseInt(n.value) || 0;
             });
 
-            $("#allMayCost").val(cost);
-            $("#allRealCost").val(cost);
+            $("#allPartCost").val(cost);
         }
 
-        $("body")
-                .delegate("input[cal]", "input",calculate)
-                .delegate(".delBtn", "click", calculate);
+        function itemCalc(){
+            var cost = 0;
+            $.each($(".itemField input[cal]:visible"), function(i, n){
+                cost += parseInt(n.value) || 0;
+            });
+
+            $("#allItemCost").val(cost);
+        }
+
+        $(".partField")
+            .delegate("input[cal]", "input", partCalc)
+            .delegate(".delBtn", "click", partCalc);
+        $(".itemField")
+            .delegate("input[cal]", "input", itemCalc)
+            .delegate(".delBtn", "click", itemCalc);
 
         $.get("/storage/getAllName", function(data){
             $("input[name='partName']").autocomplete({
