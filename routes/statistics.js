@@ -12,15 +12,15 @@ exports.get = function (req, res) {
 };
 
 function handleWithSingle(req, res, date){
-    var recordData, spendingData, spendingItemData, partListData;
+    var recordData, spendingData, spendingItemData, spendPartData;
     function show(){
-        if(recordData !== undefined && spendingData !== undefined && spendingItemData !== undefined && partListData !== undefined){
+        if(recordData !== undefined && spendingData !== undefined && spendingItemData !== undefined && spendPartData !== undefined){
             res.render("statistics/settlement_single", {
                 date: date,
                 recordData: recordData,
                 spendingData: spendingData,
                 spendingItemData: spendingItemData,
-                partListData: partListData
+                partListData: spendPartData
             });
         }
     }
@@ -50,7 +50,7 @@ function handleWithSingle(req, res, date){
             date: date
         },
         function (error, results) {
-            partListData = results;
+            spendPartData = results;
             show();
         });
 }
@@ -75,23 +75,20 @@ function handleWithInterval(req, res, startDate, endDate){
                 printData.push({
                     date: day, // 日期
 
-                    // 总收入
-                    // 记账金额
+                    allRealCost: recordIndex < recordLen ? recordData[recordIndex].allRealCost : 0, // 总收入
+                    allDelayPay: recordIndex < recordLen ? recordData[recordIndex].allDelayPay : 0, // 记账金额
                     // 现金
 
                     // 总支出
-                    // 进货支出
-                    // 其它支出
+                    ourSpend: recordIndex < recordLen ? recordData[recordIndex].ourSpend : 0, // 维修成本
+                    allPartCost: spendingIndex < spendingLen ? spendingData[spendingIndex].allPartCost : 0, // 进货支出
+                    allItemCost: spendingIndex < spendingLen ? spendingData[spendingIndex].allItemCost : 0, // 其它支出
 
                     // 本日利润
-                    // 维修成本
-                    // 本日现金
+                    // 本日现金,
 
                     // 洗车次数
-                    recordAllMayCost: recordIndex < recordLen ? recordData[recordIndex].allMayCost : 0,
-                    recordAllRealCost: recordIndex < recordLen ? recordData[recordIndex].allRealCost : 0,
-                    spendingAllPartCost: spendingIndex < spendingLen ? spendingData[spendingIndex].allPartCost : 0,
-                    spendingAllItemCost: spendingIndex < spendingLen ? spendingData[spendingIndex].allItemCost : 0
+                    allCarWash: recordIndex < recordLen ? recordData[recordIndex].allCarWash : 0
                 });
 
 
@@ -106,7 +103,7 @@ function handleWithInterval(req, res, startDate, endDate){
         }
     }
 
-    sqlclient.query("select carOutDate,sum(allMayCost) as allMayCost,sum(allRealCost) as allRealCost from record where carOutDate between '" + startDate + "' and '" + endDate + "' group by(carOutDate);",
+    sqlclient.query("select carOutDate,sum(allRealCost) as allRealCost,sum(if(isDelayToPay=1,allRealCost,0)) as allDelayPay,sum(ourSpend) as ourSpend,sum(isCarWash) as allCarWash from record where carOutDate between '" + startDate + "' and '" + endDate + "' group by(carOutDate);",
         function (error, results) {
             recordData = results || null;
             show();

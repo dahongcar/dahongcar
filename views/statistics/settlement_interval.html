@@ -12,8 +12,7 @@
     </p>
 </div>
 <div class="bd">
-    <% this.allMayIncome = 0, this.allRealIncome = 0, this.allPartCost = 0, this.allItemCost = 0; %>
-    <legend><%= startDate%>至<%= endDate%> 盈利</legend>
+    <legend><%= startDate%>至<%= endDate%> 收支情况</legend>
     <%if(printData.length){%>
     <table class="table table-bordered narrow clickable">
         <thead>
@@ -25,11 +24,11 @@
             <th>现金</th>
 
             <th>总支出</th>
-            <th>进货支出</th>
+            <th>维修成本</th>
             <th>其它支出</th>
 
-            <th>维修成本</th>
             <th>本日利润</th>
+            <th>进货支出</th>
             <th>本日现金</th>
 
             <th>洗车次数</th>
@@ -38,17 +37,23 @@
         <tbody>
         <%
             for(var i = 0; i < printData.length; ++i){
-            this.allMayIncome += printData[i].recordAllMayCost;
-            this.allRealIncome += printData[i].recordAllRealCost;
-            this.allPartCost += printData[i].spendingAllPartCost;
-            this.allItemCost += printData[i].spendingAllItemCost;
         %>
         <tr clickto="/statistics/get?startDate=<%= printData[i].date %>">
             <td title="日期"><%= printData[i].date %></td>
 
-            <td title="<%= printData[i].date %>应收总额"><%= printData[i].recordAllMayCost %></td>
-            <td title="<%= printData[i].date %>实收总额"><%= printData[i].recordAllRealCost %></td>
+            <td title="<%= printData[i].date %>总收入"><%= printData[i].allRealCost %></td>
+            <td title="<%= printData[i].date %>记账金额"><%= printData[i].allDelayPay %></td>
+            <td title="<%= printData[i].date %>现金"><%= printData[i].allRealCost - printData[i].allDelayPay %></td>
 
+            <td title="<%= printData[i].date %>总支出"><%= printData[i].ourSpend + printData[i].allItemCost %></td>
+            <td title="<%= printData[i].date %>维修成本"><%= printData[i].ourSpend %></td>
+            <td title="<%= printData[i].date %>其它支出"><%= printData[i].allItemCost %></td>
+
+            <td title="<%= printData[i].date %>本日利润"><%= printData[i].allRealCost - (printData[i].ourSpend + printData[i].allItemCost) %></td>
+            <td title="<%= printData[i].date %>进货支出"><%= printData[i].allPartCost %></td>
+            <td title="<%= printData[i].date %>本日现金"><%= printData[i].allRealCost - (printData[i].ourSpend + printData[i].allItemCost) - printData[i].allDelayPay %></td>
+
+            <td title="<%= printData[i].date %>洗车次数"></td>
         </tr>
         <%}%>
         </tbody>
@@ -58,12 +63,7 @@
     <table class="table no_border">
         <tbody>
         <tr>
-            <td>应该收入：<%= allMayIncome %></td>
-            <td>实际收入：<%= allRealIncome %></td>
-            <td>进货支出：<%= allPartCost %></td>
-            <td>其它支出：<%= allItemCost %></td>
-            <td>应该盈利：<%= allMayIncome - allPartCost - allItemCost%></td>
-            <td>实际盈利：<%= allRealIncome - allPartCost - allItemCost%></td>
+
         </tr>
         </tbody>
     </table>
