@@ -53,7 +53,7 @@
             <td title="<%= printData[i].date %>进货支出"><%= printData[i].allPartCost %></td>
             <td title="<%= printData[i].date %>本日现金"><%= printData[i].allRealCost - (printData[i].ourSpend + printData[i].allItemCost) - printData[i].allDelayPay %></td>
 
-            <td title="<%= printData[i].date %>洗车次数"></td>
+            <td title="<%= printData[i].date %>洗车次数"><%= printData[i].allCarWash %></td>
         </tr>
         <%}%>
         </tbody>
