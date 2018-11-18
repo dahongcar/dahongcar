@@ -55,7 +55,7 @@ exports.post = function (req, res) {
                 }
             }
 
-            //其他支出
+            //其它支出
             if(body.itemName){
                 if(typeof body.itemName == "string"){
                     var spendingItemData = {
