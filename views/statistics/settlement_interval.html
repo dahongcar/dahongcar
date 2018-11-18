@@ -19,12 +19,20 @@
         <thead>
         <tr>
             <th>日期</th>
-            <th>当日应收总额</th>
-            <th>当日实收总额</th>
-            <th>当日应支总额</th>
-            <th>当日实支总额</th>
-            <th>当日应该盈利</th>
-            <th>当日实际盈利</th>
+
+            <th>总收入</th>
+            <th>记账金额</th>
+            <th>现金</th>
+
+            <th>总支出</th>
+            <th>进货支出</th>
+            <th>其它支出</th>
+
+            <th>维修成本</th>
+            <th>本日利润</th>
+            <th>本日现金</th>
+
+            <th>洗车次数</th>
         </tr>
         </thead>
         <tbody>
@@ -37,12 +45,16 @@
         %>
         <tr clickto="/statistics/get?startDate=<%= printData[i].date %>">
             <td title="日期"><%= printData[i].date %></td>
+
             <td title="<%= printData[i].date %>应收总额"><%= printData[i].recordAllMayCost %></td>
             <td title="<%= printData[i].date %>实收总额"><%= printData[i].recordAllRealCost %></td>
             <td title="<%= printData[i].date %>应支总额"><%= printData[i].spendingAllMayCost %></td>
+
             <td title="<%= printData[i].date %>实支总额"><%= printData[i].spendingAllRealCost %></td>
             <td title="<%= printData[i].date %>应该盈利"><%= printData[i].recordAllMayCost - printData[i].spendingAllMayCost %></td>
             <td title="<%= printData[i].date %>实际盈利"><%= printData[i].recordAllRealCost - printData[i].spendingAllRealCost %></td>
+
+
         </tr>
         <%}%>
         </tbody>

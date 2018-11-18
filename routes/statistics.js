@@ -56,27 +56,48 @@ function handleWithSingle(req, res, date){
 }
 function handleWithInterval(req, res, startDate, endDate){
     var recordData, spendingData, startDateSec = +new Date(startDate), endDateSec = +new Date(endDate);
+
     function show(){
         if(recordData !== undefined && spendingData !== undefined){
             var printData = [], recordIndex = 0, spendingIndex = 0, recordLen = recordData.length, spendingLen = spendingData.length;
+
             while(startDateSec <= endDateSec){
                 var day = new Date(startDateSec);
                 day = day.getFullYear()+"-"+(("0" + (day.getMonth() + 1)).slice(-2))+"-"+(("0" + day.getDate()).slice(-2));
+
                 for(recordIndex = 0;recordIndex < recordLen;++recordIndex){
-                    if(recordData[recordIndex].carOutDate == day) break;
+                    if(recordData[recordIndex].carOutDate == day) break; // 找到当天的record
                 }
                 for(spendingIndex= 0;spendingIndex < spendingLen;++spendingIndex){
-                    if(spendingData[spendingIndex].date == day) break;
+                    if(spendingData[spendingIndex].date == day) break; // 找到当天的spending
                 }
+
                 printData.push({
-                    date: day,
+                    date: day, // 日期
+
+                    // 总收入
+                    // 记账金额
+                    // 现金
+
+                    // 总支出
+                    // 进货支出
+                    // 其它支出
+
+                    // 本日利润
+                    // 维修成本
+                    // 本日现金
+
+                    // 洗车次数
                     recordAllMayCost: recordIndex < recordLen ? recordData[recordIndex].allMayCost : 0,
                     recordAllRealCost: recordIndex < recordLen ? recordData[recordIndex].allRealCost : 0,
                     spendingAllMayCost: spendingIndex < spendingLen ? spendingData[spendingIndex].allMayCost : 0,
                     spendingAllRealCost: spendingIndex < spendingLen ? spendingData[spendingIndex].allRealCost : 0
                 });
-                startDateSec += 86400000;
+
+
+                startDateSec += 24 * 60 * 60 * 1000;
             }
+
             res.render("statistics/settlement_interval", {
                 startDate: startDate,
                 endDate: endDate,
