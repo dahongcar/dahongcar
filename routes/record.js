@@ -27,7 +27,6 @@ exports.post = function (req, res) {
             allRealCost: body.allRealCost,
             cashier: body.cashier,
             ourSpend: body.ourSpend,
-            isWeixin: body.isWeixin,
             isDelayToPay: body.isDelayToPay,
             note: body.note,
         },
