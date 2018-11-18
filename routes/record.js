@@ -28,6 +28,7 @@ exports.post = function (req, res) {
             cashier: body.cashier,
             ourSpend: body.ourSpend,
             isDelayToPay: body.isDelayToPay,
+            isCarWash: body.isCarWash,
             note: body.note,
         },
         recordId;

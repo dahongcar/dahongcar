@@ -4,6 +4,7 @@
 </style>
 <form class="form-horizontal" action="/record/post/" method="post">
     <input type="hidden" name="recordId" value="<%= get('id') %>"/>
+    <input id="isCarWash" type="checkbox" hidden name="isCarWash" value="1" <%if(get('isCarWash') == 1){%>checked="checked"<%}%> />
     <fieldset>
         <legend>客户信息</legend>
         <div class="form-group rows">
@@ -180,7 +181,7 @@
                 <div class="col-sm-offset-6 col-sm-2">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="isDelayToPay" value="1" <%if(get('isDelayToPay') == 1){%>checked="checked"<%}%> > 是否记账
+                            <input type="checkbox" name="isDelayToPay" value="1" <%if(get('isDelayToPay') == 1){%>checked="checked"<%}%> /> 是否记账
                         </label>
                     </div>
                 </div>
@@ -202,7 +203,7 @@
 (function(){
     setTagActive("record_input");
 
-    var allMayCost = 0, projectCost = 0, partMayCost = 0;
+    var allMayCost = 0, projectCost = 0, partMayCost = 0, isCarWash = false;
     function calculate(){
         projectCost = 0; partMayCost = 0;
         $.each($("input[name='projectCost']:visible"), function(i, n){
@@ -218,11 +219,21 @@
         $("#allMayCost").val(allMayCost);
         $("#allRealCost").val(allMayCost);
     }
+    function calcIsCarWash(){
+        isCarWash = false;
+
+        $.each($("input[name='projectName']:visible"), function(i, n){
+            if(n.value.indexOf('洗车') > -1) isCarWash = true;
+        });
+
+        $("#isCarWash")[0].checked = isCarWash;
+    }
 
     $("body")
-            .delegate("input[name='projectCost']", "input",calculate)
-            .delegate("input[name='partCost']", "input", calculate)
-            .delegate(".delBtn", "click", calculate);
+        .delegate("input[name='projectName']", "input", calcIsCarWash)
+        .delegate("input[name='projectCost']", "input", calculate)
+        .delegate("input[name='partCost']", "input", calculate)
+        .delegate(".delBtn", "click", calculate);
 
     $("#submitBtn").on("click", function(){
         var val = $("#carNum").val();
