@@ -26,7 +26,10 @@ exports.post = function (req, res) {
             allMayCost: body.allMayCost,
             allRealCost: body.allRealCost,
             cashier: body.cashier,
-            note: body.note
+            ourSpend: body.ourSpend,
+            isWeixin: body.isWeixin,
+            isDelayToPay: body.isDelayToPay,
+            note: body.note,
         },
         recordId;
 

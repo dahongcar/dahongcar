@@ -150,6 +150,11 @@
                 <div class="col-sm-2">
                     <input class="form-control" type="text" name="partRealCost" id="partRealCost" value="<%= get('partRealCost', '0') %>" maxlength="10" />
                 </div>
+
+                <label class="col-sm-2 control-label">实际成本(元)</label>
+                <div class="col-sm-2">
+                    <input class="form-control" type="text" name="ourSpend" id="ourSpend" value="<%= get('ourSpend', '0') %>" maxlength="10" />
+                </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">合计应收(元)</label>
@@ -169,6 +174,22 @@
                         <option value="<%= employees[i] %>" <%if(get("cashier") && employees[i] == cashier){%>selected<%}%>><%= employees[i] %></option>
                         <%}%>
                     </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-6 col-sm-2">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="isWeixin" value="1" <%if(get('isWeixin') == 1){%>checked="checked"<%}%> > 是否微信支付
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="isDelayToPay" value="1" <%if(get('isDelayToPay') == 1){%>checked="checked"<%}%> > 是否记账
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
