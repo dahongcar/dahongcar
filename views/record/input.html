@@ -248,6 +248,7 @@
             alert("请输入维修/配件名称");
             return false;
         }else{
+            calcIsCarWash();
             document.forms[0].submit();
         }
     });
@@ -257,6 +258,9 @@
             lookup: data
         });
     });
+
+
+    calcIsCarWash();
 })();
 </script>
 <% include ../layout/bottom.html %>
