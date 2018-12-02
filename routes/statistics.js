@@ -26,7 +26,7 @@ function handleWithSingle(req, res, date){
     }
 
     sqlclient.query("select * from record where ?", {
-            carOutDate: date
+            carInDate: date
         },
         function (error, results) {
             recordData = results || null;
@@ -66,7 +66,7 @@ function handleWithInterval(req, res, startDate, endDate){
                 day = day.getFullYear()+"-"+(("0" + (day.getMonth() + 1)).slice(-2))+"-"+(("0" + day.getDate()).slice(-2));
 
                 for(recordIndex = 0;recordIndex < recordLen;++recordIndex){
-                    if(recordData[recordIndex].carOutDate == day) break; // 找到当天的record
+                    if(recordData[recordIndex].carInDate == day) break; // 找到当天的record
                 }
                 for(spendingIndex= 0;spendingIndex < spendingLen;++spendingIndex){
                     if(spendingData[spendingIndex].date == day) break; // 找到当天的spending
@@ -103,7 +103,7 @@ function handleWithInterval(req, res, startDate, endDate){
         }
     }
 
-    sqlclient.query("select carOutDate,sum(allRealCost) as allRealCost,sum(if(isDelayToPay=1,allRealCost,0)) as allDelayPay,sum(ourSpend) as ourSpend,sum(isCarWash) as allCarWash from record where carOutDate between '" + startDate + "' and '" + endDate + "' group by(carOutDate);",
+    sqlclient.query("select carInDate,sum(allRealCost) as allRealCost,sum(if(isDelayToPay=1,allRealCost,0)) as allDelayPay,sum(ourSpend) as ourSpend,sum(isCarWash) as allCarWash from record where carInDate between '" + startDate + "' and '" + endDate + "' group by(carInDate);",
         function (error, results) {
             recordData = results || null;
             show();
