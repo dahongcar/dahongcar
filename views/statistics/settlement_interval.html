@@ -36,7 +36,21 @@
         </thead>
         <tbody>
         <%
+            this.data0 = 0;this.data1 = 0;this.data2 = 0;this.data3 = 0;this.data4 = 0;this.data5 = 0;this.data6 = 0;this.data7 = 0;this.data8 = 0;this.data9 = 0;
             for(var i = 0; i < printData.length; ++i){
+                this.data0 += printData[i].allRealCost || 0;
+                this.data1 += printData[i].allDelayPay || 0;
+                this.data2 += printData[i].allRealCost - printData[i].allDelayPay || 0;
+
+                this.data3 += printData[i].ourSpend + printData[i].allItemCost || 0;
+                this.data4 += printData[i].ourSpend || 0;
+                this.data5 += printData[i].allItemCost || 0;
+
+                this.data6 += printData[i].allRealCost - (printData[i].ourSpend + printData[i].allItemCost) || 0;
+                this.data7 += printData[i].allPartCost || 0;
+                this.data8 += printData[i].allRealCost - (printData[i].ourSpend + printData[i].allItemCost) - printData[i].allDelayPay || 0;
+
+                this.data9 += printData[i].allCarWash || 0;
         %>
         <tr clickto="/statistics/get?startDate=<%= printData[i].date %>">
             <td title="日期"><%= printData[i].date %></td>
@@ -56,14 +70,22 @@
             <td title="<%= printData[i].date %>洗车次数"><%= printData[i].allCarWash %></td>
         </tr>
         <%}%>
-        </tbody>
-    </table>
-
-    <legend>合计</legend>
-    <table class="table no_border">
-        <tbody>
         <tr>
+            <td>总计</td>
 
+            <td><%= this.data0 %></td>
+            <td><%= this.data1 %></td>
+            <td><%= this.data2 %></td>
+
+            <td><%= this.data3 %></td>
+            <td><%= this.data4 %></td>
+            <td><%= this.data5 %></td>
+
+            <td><%= this.data6 %></td>
+            <td><%= this.data7 %></td>
+            <td><%= this.data8 %></td>
+
+            <td><%= this.data9 %></td>
         </tr>
         </tbody>
     </table>
