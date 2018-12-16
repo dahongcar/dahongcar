@@ -1,0 +1,29 @@
+<% include ../layout/top.html %>
+<link rel="stylesheet" href="/css/settlement.css"/>
+
+<div class="bd">
+    <legend>含有"<%= name %>"的项目</legend>
+    <table class="table table-bordered narrow clickable">
+        <thead>
+        <tr>
+            <th class="ws">序号</th>
+            <th class="wl">日期</th>
+            <th>配件名称</th>
+            <th class="wm">数量</th>
+            <th class="wm">总额</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%for(var i = 0; i < data.length; ++i){%>
+        <tr clickto="/spending/get?date=<%= data[i].date %>">
+            <td><%= i+1 %></td>
+            <td><%= data[i].date %></td>
+            <td><%= data[i].name %></td>
+            <td><%= data[i].count %></td>
+            <td><%= data[i].cost %></td>
+        </tr>
+        <%}%>
+        </tbody>
+    </table>
+</div>
+<% include ../layout/bottom.html %>

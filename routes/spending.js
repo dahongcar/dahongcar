@@ -117,10 +117,11 @@ exports.post = function (req, res) {
     });
 };
 exports.get = function (req, res) {
-    handle(req, res, req.query.date);
+    if(req.query.date) handleDate(req, res, req.query.date);
+    else handleName(req, res, req.query.name);
 };
 exports.edit = function(req, res){
-    handle(req, res, req.query.date, "input");
+    handleDate(req, res, req.query.date, "input");
 };
 exports.del = function (req, res) {
     if(req.params.date){
@@ -131,7 +132,7 @@ exports.del = function (req, res) {
 	res.redirect("/tmpl?t=spending/query");
 };
 
-function handle(req, res, date, template){
+function handleDate(req, res, date, template){
     var spendingData, itemListData, partListData;
     function show(){
         if(spendingData === null){
@@ -165,6 +166,31 @@ function handle(req, res, date, template){
     sqlclient.query("select * from spending_part where ?", {
             date: date
         },
+        function (error, results) {
+            partListData = results;
+            show();
+        });
+}
+
+function handleName(req, res, name){
+    var itemListData, partListData;
+    function show(){
+        if(itemListData != undefined && partListData != undefined){
+            var printData = {};
+            utils.extend(printData, {
+                name: name,
+                data: partListData.concat(itemListData).sort(function(a, b){ return new Date(b.date) - new Date(a.date); }),
+            });
+            res.render("spending/settlement_name", printData);
+        }
+    }
+
+    sqlclient.query("select * from spending_item where name like '%" + name + "%' order by date desc ",
+        function (error, results) {
+            itemListData = results;
+            show();
+        });
+    sqlclient.query("select * from spending_part where name like '%" + name + "%' order by date desc",
         function (error, results) {
             partListData = results;
             show();
