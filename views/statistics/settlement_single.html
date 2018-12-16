@@ -12,7 +12,6 @@
     </p>
 </div>
 <div class="bd">
-    <% this.allMayCost = 0, this.allRealCost = 0; %>
     <legend><%= date%> 收入</legend>
     <%if(recordData.length){%>
     <div class="bd">
@@ -21,38 +20,46 @@
             <tr>
                 <th class="ws">序号</th>
                 <th>车牌</th>
-                <th>应收</th>
-                <th>实收</th>
+                <th>收入</th>
+                <th>成本</th>
+                <th>是否记账</th>
+                <th>是否洗车</th>
                 <th>备注</th>
             </tr>
             </thead>
             <tbody>
             <%
+                this.allRealCost = 0;this.allRealCost = 0;this.allOurSpend = 0;this.allDelayToPay = 0;this.allCarWash = 0;
                 for(var i = 0; i < recordData.length; ++i){
-                this.allMayCost += recordData[i].allMayCost;
                 this.allRealCost += recordData[i].allRealCost;
+                this.allOurSpend += recordData[i].ourSpend;
+                this.allDelayToPay += recordData[i].isDelayToPay ? recordData[i].allRealCost : 0;
+                this.allCarWash += recordData[i].isCarWash ? 1 : 0;
             %>
             <tr clickto="/record/get/<%= recordData[i].carNum %>/<%= recordData[i].id %>">
                 <td><%= i+1 %></td>
                 <td><%= recordData[i].carNum %></td>
-                <td><%= recordData[i].allMayCost %></td>
                 <td><%= recordData[i].allRealCost %></td>
+                <td><%= recordData[i].ourSpend %></td>
+                <td><%= recordData[i].isDelayToPay ? '是' : '' %></td>
+                <td><%= recordData[i].isCarWash ? '是' : '' %></td>
                 <td><%= recordData[i].note %></td>
             </tr>
             <%}%>
-            </tbody>
-        </table>
-    </div>
-    <div class="ft">
-        <table class="table">
-            <tbody>
+
             <tr>
-                <td>应收：￥<%= allMayCost %></td>
-                <td>实收：￥<%= allRealCost %></td>
+                <td class="ws">合计</td>
+                <td></td>
+                <td title="总收入"><%= this.allRealCost %></td>
+                <td title="总成本"><%= this.allOurSpend %></td>
+                <td title="记账总金额"><%= this.allDelayToPay %></td>
+                <td title="洗车次数"><%= this.allCarWash %>次</td>
+                <td></td>
             </tr>
             </tbody>
         </table>
     </div>
+    <div class="ft"></div>
     <%}else{%>
     <div class="empty">暂无数据</div>
     <%}%>
@@ -61,7 +68,6 @@
     <legend><%= date%> 支出</legend>
     <%
         if(spendingData){
-        this.allMayCost -= spendingData.allPartCost + spendingData.allItemCost;
         this.allRealCost -= spendingData.allPartCost + spendingData.allItemCost;
     %>
     <div class="bd">
@@ -133,18 +139,6 @@
     <%}else{%>
     <div class="empty">暂无数据</div>
     <%}%>
-
-    <legend class="no_extra"><%= date%> 合计</legend>
-    <div class="ft">
-        <table class="table">
-            <tbody>
-            <tr>
-                <td><strong>合计应收：￥<%= allMayCost %></strong></td>
-                <td><strong>合计实收：￥<%= allRealCost %></strong></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
 </div>
 <script type="text/javascript">
     setTagActive("statistics");
